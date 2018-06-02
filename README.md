@@ -8,7 +8,7 @@
 
 <img align="left" width="100" height="100" src="https://png.icons8.com/color/1600/angularjs.png">
 
-<img align="right" width="150" height="100" src="https://cdn.pixabay.com/photo/2015/04/23/17/41/node-js-736399_960_720.png">
+<img align="left" width="150" height="100" src="https://cdn.pixabay.com/photo/2015/04/23/17/41/node-js-736399_960_720.png">
 
 </div>
 

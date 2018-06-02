@@ -1,5 +1,6 @@
 # Library Management System - MEAN stack 
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/693f085ee97947ce8dc0514b46d68c51)](https://app.codacy.com/app/xXZang3tsuXx/mean-book-library?utm_source=github.com&utm_medium=referral&utm_content=xXZang3tsuXx/mean-book-library&utm_campaign=badger)
 [![Build Status](https://travis-ci.org/xXZang3tsuXx/mean-book-library.svg?branch=master)](https://travis-ci.org/xXZang3tsuXx/mean-book-library)
 
 <div>

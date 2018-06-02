@@ -1,12 +1,17 @@
 # Library Management System - MEAN stack 
 
-[![N|Solid](https://i2.wp.com/www.damiencosset.com/wp-content/uploads/2017/07/mongodb.png?fit=413%2C484&ssl=1)](https://www.mongodb.com/)
 
-[![N|Solid](https://www.atatus.com/images/devicon/icon-express.svg)](https://expressjs.com/)
+<div>
+<img align="left" width="100" height="100" src="https://i2.wp.com/www.damiencosset.com/wp-content/uploads/2017/07/mongodb.png">
 
-[![N|Solid](https://png.icons8.com/color/1600/angularjs.png)](https://angularjs.org/)
+<img align="center" width="100" height="100" src="https://www.atatus.com/images/devicon/icon-express.svg">
 
-[![N|Solid](https://cdn.pixabay.com/photo/2015/04/23/17/41/node-js-736399_960_720.png)](https://nodejs.org/en/)
+<img align="left" width="100" height="100" src="https://png.icons8.com/color/1600/angularjs.png">
+
+<img align="right" width="150" height="100" src="https://cdn.pixabay.com/photo/2015/04/23/17/41/node-js-736399_960_720.png">
+
+</div>
+
 
 ## pre-requisites
 

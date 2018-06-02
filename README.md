@@ -1,5 +1,6 @@
 # Library Management System - MEAN stack 
 
+[![Build Status](https://travis-ci.org/xXZang3tsuXx/mean-book-library.svg?branch=master)](https://travis-ci.org/xXZang3tsuXx/mean-book-library)
 
 <div>
 <img align="left" width="100" height="100" src="https://i2.wp.com/www.damiencosset.com/wp-content/uploads/2017/07/mongodb.png">

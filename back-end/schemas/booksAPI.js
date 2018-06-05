@@ -3,9 +3,17 @@ var Schema = mongoose.Schema;
 
 var bookSchema = Schema(
     {
-        title: String,
-        author: String,
-        available: Boolean
+        title: {
+            type: String,
+            required: true
+        },
+        author: {
+            type: String,
+            required: true
+        },
+        available: {
+            type: Boolean
+        }
     }
 );
 

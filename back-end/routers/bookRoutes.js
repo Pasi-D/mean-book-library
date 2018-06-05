@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-var bodyParser = require('body-parser');
-
 var Books = require('../schemas/booksAPI');
 
 router.get('/books', function (req, res) {

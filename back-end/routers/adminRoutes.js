@@ -23,32 +23,29 @@ router.post('/register', function (req, res) {
     });
 })
 
-router.get('/profile', function (req, res) {
-    res.send('Admin Profiles');
+router.get('/profile', passport.authenticate('jwt', {session:false}), function (req, res, next) {
+    res.json({user: req.user});
 })
 
 router.post('/authenticate', function (req, res) {
     var username = req.body.username;
     var password = req.body.password;
 
-    Admin.getAdminByUsername(username, function (err, admin) {
-        console.log('getAdminByUsername');
-        
+    Admin.getAdminByUsername(username, function (err, admin) {                
         if(err) throw err;
         if(!admin){
             return res.json({success: false, msg:'Admin not found'});
-        }
-        console.log('Admin found!');
+        }        
         Admin.comparePassword(password, admin.password, function (err, isMatch) {
             if(err) throw err;
             if (isMatch) {
-                const token = jwt.sign({data: admin}, config.secret, {
+                const token = jwt.sign(admin.toJSON(), config.secret, {
                     expiresIn: 604800 //1 week
                 });
 
                 res.json({
                     success: true,
-                    token: 'JWT'+token,
+                    token: `Bearer ${token}`,
                     admin: {
                         id: admin._id,
                         username: admin.username,

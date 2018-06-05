@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-var Books = require('./schemas/booksAPI');
+var bodyParser = require('body-parser');
 
-router.get('/', function (req, res) {
+var Books = require('../schemas/booksAPI');
+
+router.get('/books', function (req, res) {
     Books.getBooks(function (error, books) {
         if (error) {
             throw error;
@@ -13,7 +15,7 @@ router.get('/', function (req, res) {
     });
 })
 
-router.get('/:_id', function (req, res) {
+router.get('/books/:_id', function (req, res) {
     Books.getBook(req.params._id,function (error, books) {
         if (error) {
             throw error;
@@ -25,12 +27,13 @@ router.get('/:_id', function (req, res) {
 
 
 
-router.post('/', function (req, res) {
+router.post('/books',function (req, res) {
     var newBook = {
         title: req.body.title,
         author: req.body.author,
         available: req.body.available
     }
+    console.log(newBook);    
     Books.addBook(newBook, function (error, books) {
         if (error) {
             throw error;
@@ -40,7 +43,7 @@ router.post('/', function (req, res) {
     });
 })
 
-router.put('/:_id', function (req, res) {
+router.put('/books/:_id', function (req, res) {
     var update = {
         title: req.body.title,
         author: req.body.author,
@@ -55,7 +58,7 @@ router.put('/:_id', function (req, res) {
     })
 })
 
-router.delete('/:id', function (req, res) {
+router.delete('/books/:id', function (req, res) {
     Books.deleteBook(req.params._id, function (error, books) {
         if (error) {
             throw error;

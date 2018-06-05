@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-var router = require('./routes');
+var bookrouter = require('./routers/bookRoutes');
 
 const config = require('./config/database');
 
@@ -20,14 +20,19 @@ mongoose.connection
 
 var app = express();
 
+// Middleware
+// parse application/x-www-form-urlencoded: use x-www-form-urlencoded for parsing data
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+// parse application/json
+app.use(bodyParser.json());
+
+
 // use port 3000 unless there exists a preconfigured port
 var port = process.env.port || 3000;
 
-// Middleware
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-
-app.use('/api/books', router);
+app.use('/api', bookrouter);
 
 app.listen(port, function() {
     console.log('server is running on port : ' + port);    

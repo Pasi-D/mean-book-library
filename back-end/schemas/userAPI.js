@@ -5,7 +5,11 @@ var bcrypt = require('bcryptjs');
 var config = require('../config/database');
 
 
-var UserSchema = Schema({    
+var UserSchema = Schema({ 
+    name: {
+        type: String,
+        required: true
+    },   
     username: {
         type: String,
         required: true

@@ -3,6 +3,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 
+var cors = require('cors');
+
 // Routes for Books
 var bookrouter = require('./routers/bookRoutes');
 
@@ -24,6 +26,9 @@ mongoose.connection
 
 
 var app = express();
+
+// CORS Middleware
+app.use(cors());
 
 // Body-parser Middleware
 // parse application/x-www-form-urlencoded: use x-www-form-urlencoded for parsing data

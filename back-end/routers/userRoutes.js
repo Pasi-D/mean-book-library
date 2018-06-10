@@ -5,20 +5,20 @@ var jwt = require('jsonwebtoken');
 
 var config = require('../config/database');
 
-var Admin = require('../schemas/adminAPI');
+var User = require('../schemas/userAPI');
 
 router.post('/register', function (req, res) {
-    let newAdmin = new Admin({
+    let newUser = new User({
         username: req.body.username,
         email: req.body.email,
         password: req.body.password
     });
 
-    Admin.addAdmin(newAdmin, function (err, admin) {
+    User.addUser(newUser, function (err, user) {
         if (err) {
-            res.json({success: fail, msg:'Failed to register the admin'});
+            res.json({success: fail, msg:'Failed to register the user'});
         } else {
-            res.json({success: true, msg:'admin registered'});
+            res.json({success: true, msg:'user registered'});
         }
     });
 })
@@ -31,25 +31,25 @@ router.post('/authenticate', function (req, res) {
     var username = req.body.username;
     var password = req.body.password;
 
-    Admin.getAdminByUsername(username, function (err, admin) {                
+    User.getUserByUsername(username, function (err, user) {                
         if(err) throw err;
-        if(!admin){
-            return res.json({success: false, msg:'Admin not found'});
+        if(!user){
+            return res.json({success: false, msg:'User not found'});
         }        
-        Admin.comparePassword(password, admin.password, function (err, isMatch) {
+        User.comparePassword(password, user.password, function (err, isMatch) {
             if(err) throw err;
             if (isMatch) {
-                const token = jwt.sign(admin.toJSON(), config.secret, {
+                const token = jwt.sign(user.toJSON(), config.secret, {
                     expiresIn: 604800 //1 week
                 });
 
                 res.json({
                     success: true,
                     token: `Bearer ${token}`,
-                    admin: {
-                        id: admin._id,
-                        username: admin.username,
-                        email: admin.email
+                    user: {
+                        id: user._id,
+                        username: user.username,
+                        email: user.email
                     }
                 });
             }else {

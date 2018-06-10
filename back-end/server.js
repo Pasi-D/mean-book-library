@@ -6,8 +6,8 @@ var passport = require('passport');
 // Routes for Books
 var bookrouter = require('./routers/bookRoutes');
 
-// Routes for Admins
-var adminrouter = require('./routers/adminRoutes');
+// Routes for Users
+var userrouter = require('./routers/userRoutes');
 
 const config = require('./config/database');
 
@@ -45,7 +45,8 @@ require('./config/passport')(passport);
 
 // Routes
 app.use('/api', bookrouter);
-app.use('/admin', adminrouter);
+app.use('/user', userrouter);
+
 
 app.listen(port, function() {
     console.log('server is running on port : ' + port);    

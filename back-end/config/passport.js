@@ -2,7 +2,7 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 
-const Admin = require('../schemas/adminAPI');
+const User = require('../schemas/userAPI');
 
 const config = require('../config/database');
 
@@ -11,13 +11,13 @@ module.exports = function (passport) {
     opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
     opts.secretOrKey = config.secret;
     passport.use(new JwtStrategy(opts, function (jwt_payload, done) {        
-        Admin.getAdminById(jwt_payload._id, function (err, admin) {                       
+        User.getUserById(jwt_payload._id, function (err, user) {                       
             if (err) {
                 return done(err, false);
             }
 
-            if (admin) {
-                return done(null, admin);
+            if (user) {
+                return done(null, user);
             }else {
                 return done(null, false);
             }

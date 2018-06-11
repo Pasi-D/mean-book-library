@@ -17,6 +17,7 @@ import { AuthService } from './services/auth.service';
 import { FlashMessagesModule } from 'angular2-flash-messages/module';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { HttpModule } from '@angular/http';
+import { DashboardComponent } from './components/user_components/dashboard/dashboard.component';
 
 
 
@@ -25,7 +26,8 @@ import { HttpModule } from '@angular/http';
     AppComponent,
     LoginComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

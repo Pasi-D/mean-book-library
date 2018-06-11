@@ -3,11 +3,13 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 
+var cors = require('cors');
+
 // Routes for Books
 var bookrouter = require('./routers/bookRoutes');
 
-// Routes for Admins
-var adminrouter = require('./routers/adminRoutes');
+// Routes for Users
+var userrouter = require('./routers/userRoutes');
 
 const config = require('./config/database');
 
@@ -24,6 +26,9 @@ mongoose.connection
 
 
 var app = express();
+
+// CORS Middleware
+app.use(cors());
 
 // Body-parser Middleware
 // parse application/x-www-form-urlencoded: use x-www-form-urlencoded for parsing data
@@ -45,7 +50,8 @@ require('./config/passport')(passport);
 
 // Routes
 app.use('/api', bookrouter);
-app.use('/admin', adminrouter);
+app.use('/user', userrouter);
+
 
 app.listen(port, function() {
     console.log('server is running on port : ' + port);    

@@ -5,7 +5,11 @@ var bcrypt = require('bcryptjs');
 var config = require('../config/database');
 
 
-var AdminSchema = Schema({
+var UserSchema = Schema({ 
+    name: {
+        type: String,
+        required: true
+    },   
     username: {
         type: String,
         required: true
@@ -20,23 +24,23 @@ var AdminSchema = Schema({
     }
 });
 
-const Admin = module.exports = mongoose.model('Admin', AdminSchema);
+const User = module.exports = mongoose.model('User', UserSchema);
 
-module.exports.getAdminById = function(id, callback){
-    Admin.findById(id, callback);
+module.exports.getUserById = function(id, callback){
+    User.findById(id, callback);
 }
 
-module.exports.getAdminByUsername = function(username, callback){
+module.exports.getUserByUsername = function(username, callback){
     const query = {username: username}
-    Admin.findOne(query, callback);
+    User.findOne(query, callback);
 }
 
-module.exports.addAdmin = function(newAdmin, callback){
+module.exports.addUser = function(newUser, callback){
     bcrypt.genSalt(10, function(err, salt){
-        bcrypt.hash(newAdmin.password, salt,function(err, hash){
+        bcrypt.hash(newUser.password, salt,function(err, hash){
             if (err) throw err;
-            newAdmin.password = hash;
-            newAdmin.save(callback);
+            newUser.password = hash;
+            newUser.save(callback);
         });
     });
 }

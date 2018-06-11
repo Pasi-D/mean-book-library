@@ -18,12 +18,11 @@ mongoose.connect(config.database);
 // db connection status
 mongoose.connection
     .on('connected', () => {
-        console.log('connected to database : ' + config.database);        
+        console.log('connected to database : ' + config.database);
     })
     .on('error', (error) => {
-        console.log('error on connecting to database: ' + error);        
+        console.log('error on connecting to database: ' + error);
     });
-
 
 var app = express();
 
@@ -53,6 +52,8 @@ app.use('/api', bookrouter);
 app.use('/user', userrouter);
 
 
-app.listen(port, function() {
-    console.log('server is running on port : ' + port);    
+app.listen(port, function () {
+    console.log('server is running on port : ' + port);
 });
+
+module.exports = app; // for testing

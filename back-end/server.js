@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var logger = require('morgan');
 
 var cors = require('cors');
 
@@ -25,6 +26,9 @@ mongoose.connection
     });
 
 var app = express();
+
+// Morgan to log all requests 
+app.use(logger('dev'));
 
 // CORS Middleware
 app.use(cors());

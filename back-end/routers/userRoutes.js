@@ -9,7 +9,7 @@ var User = require('../models/users');
 
 var userController = require('../controllers/userAPI');
 
-router.post('/register', function (req, res) {
+router.post('/register', (req, res) => {
     let newUser = new User({
         name: req.body.name,
         username: req.body.username,
@@ -17,7 +17,7 @@ router.post('/register', function (req, res) {
         password: req.body.password
     });
 
-    userController.addUser(newUser, function (err, user) {
+    userController.addUser(newUser, (err, user) => {
         if (err) {
             res.json({success: fail, msg:'Failed to register the user'});
         } else {
@@ -26,7 +26,7 @@ router.post('/register', function (req, res) {
     });
 })
 
-router.get('/profile', passport.authenticate('jwt', {session:false}), function (req, res, next) {
+router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
     res.json({user: req.user});
 })
 

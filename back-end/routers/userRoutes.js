@@ -30,16 +30,16 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), function (
     res.json({user: req.user});
 })
 
-router.post('/authenticate', function (req, res) {
+router.post('/authenticate', (req, res) => {
     var username = req.body.username;
     var password = req.body.password;
 
-    userController.getUserByUsername(username, function (err, user) {                
+    userController.getUserByUsername(username, (err, user) => {                
         if(err) throw err;
         if(!user){
             return res.json({success: false, msg:'User not found'});
         }        
-        userController.comparePassword(password, user.password, function (err, isMatch) {
+        userController.comparePassword(password, user.password, (err, isMatch) => {
             if(err) throw err;
             if (isMatch) {
                 const token = jwt.sign(user.toJSON(), config.secret, {

@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-var Books = require('../schemas/booksAPI');
+var Books = require('../controllers/booksAPI');
 
-router.get('/books', function (req, res) {
-    Books.getBooks(function (error, books) {
+router.get('/books', (req, res, next) => {
+    Books.getBooks( (error, books) => {
         if (error) {
             throw error;
         }else {
@@ -13,8 +13,8 @@ router.get('/books', function (req, res) {
     });
 })
 
-router.get('/books/:_id', function (req, res) {
-    Books.getBook(req.params._id,function (error, books) {
+router.get('/books/:_id', (req, res, next) => {
+    Books.getBook(req.params._id,(error, books) => {
         if (error) {
             throw error;
         }else {
@@ -25,14 +25,14 @@ router.get('/books/:_id', function (req, res) {
 
 
 
-router.post('/books',function (req, res) {
+router.post('/books', (req, res) => {
     var newBook = {
         title: req.body.title,
         author: req.body.author,
         available: req.body.available
     }
     console.log(newBook);    
-    Books.addBook(newBook, function (error, books) {
+    Books.addBook(newBook, (error, books) => {
         if (error) {
             throw error;
         }else {
@@ -41,13 +41,13 @@ router.post('/books',function (req, res) {
     });
 })
 
-router.put('/books/:_id', function (req, res) {
+router.put('/books/:_id',  (req, res) => {
     var update = {
         title: req.body.title,
         author: req.body.author,
         available: req.body.available
     }
-    Books.updateBook(req.params._id, update, function (error, books) {
+    Books.updateBook(req.params._id, update, (error, books) => {
         if (error) {
             throw error;
         }else {
@@ -56,8 +56,8 @@ router.put('/books/:_id', function (req, res) {
     })
 })
 
-router.delete('/books/:id', function (req, res) {
-    Books.deleteBook(req.params._id, function (error, books) {
+router.delete('/books/:id', (req, res) => {
+    Books.deleteBook(req.params._id, (error, books) => {
         if (error) {
             throw error;
         }else {

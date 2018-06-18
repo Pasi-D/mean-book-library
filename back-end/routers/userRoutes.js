@@ -5,7 +5,9 @@ var jwt = require('jsonwebtoken');
 
 var config = require('../config/database');
 
-var User = require('../schemas/userAPI');
+var User = require('../models/users');
+
+var userController = require('../controllers/userAPI');
 
 router.post('/register', function (req, res) {
     let newUser = new User({
@@ -15,7 +17,7 @@ router.post('/register', function (req, res) {
         password: req.body.password
     });
 
-    User.addUser(newUser, function (err, user) {
+    userController.addUser(newUser, function (err, user) {
         if (err) {
             res.json({success: fail, msg:'Failed to register the user'});
         } else {
@@ -32,12 +34,12 @@ router.post('/authenticate', function (req, res) {
     var username = req.body.username;
     var password = req.body.password;
 
-    User.getUserByUsername(username, function (err, user) {                
+    userController.getUserByUsername(username, function (err, user) {                
         if(err) throw err;
         if(!user){
             return res.json({success: false, msg:'User not found'});
         }        
-        User.comparePassword(password, user.password, function (err, isMatch) {
+        userController.comparePassword(password, user.password, function (err, isMatch) {
             if(err) throw err;
             if (isMatch) {
                 const token = jwt.sign(user.toJSON(), config.secret, {

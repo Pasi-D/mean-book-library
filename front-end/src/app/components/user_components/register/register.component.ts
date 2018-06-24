@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Router } from '@angular/router';
-
 import { ValidateService } from '../../../services/validate.service';
 import { AuthService } from '../../../services/auth.service';
+// Must import to use Forms functionality  
+import { FormBuilder, FormGroup, Validators ,FormsModule,NgForm } from '@angular/forms'; 
 
 import { FlashMessagesService } from 'angular2-flash-messages';
+
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -13,51 +15,69 @@ import { FlashMessagesService } from 'angular2-flash-messages';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  regiForm: FormGroup;  
+  name:string='';    
+  username:string='';
+  email:string='';
+  password:string='';
+  IsAccepted:number=0;
 
-  name: String;
-  username: String;
-  email: String;
-  password: String;
+  constructor(        
+    private authService: AuthService,
+    private flashMessage: FlashMessagesService,
+    private router: Router,
+    private fb: FormBuilder) {
 
-  constructor(private validateService: ValidateService,
-              private flashMessage: FlashMessagesService,
-              private authService: AuthService,
-              private router: Router) { }
+      // To initialize FormGroup  
+    this.regiForm = fb.group({  
+      'name' : [null, Validators.required],  
+      'username' : [null, Validators.required],              
+      'email':[null, Validators.compose([Validators.required,Validators.email])],  
+      'password': [null, Validators.required],
+      'IsAccepted':[null]  
+    }); 
+
+     }
 
   ngOnInit() {
   }
 
-  onRegisterSubmit(){
+  // On Change event of Toggle Button  
+  onChange(event:any)  
+  {  
+    if (event.checked == true) {  
+      this.IsAccepted = 1;  
+    } else {  
+      this.IsAccepted = 0;  
+    }  
+  } 
+
+
+  // Executed When Form Is Submitted  
+  onFormSubmit(form:NgForm)  
+  {  
     const user = {
       name: this.name,
       username: this.username,
       email: this.email,
       password: this.password
     }
+
     console.log(user);
     
-    //Required fields
-    if (!this.validateService.validateRegister(user)) {
-      this.flashMessage.show('Please fill in all the fields', {cssClass: 'alert-danger', timeout: 3000});
-      return false;
-    }
-
-    //Validate Email
-    if (!this.validateService.validateEmail(user.email)) {
-      this.flashMessage.show('Please Use a Valid Email', {cssClass: 'alert-danger', timeout: 3000});
-      return false;
-    }
-
     //Register User
-    this.authService.registerUser(user).subscribe(data => {           
-      if ( data.success === true) {
-        this.flashMessage.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 3000});
+    this.authService.registerUser(user).subscribe(data=>{
+      if (data.success) {
+        console.log('login success', data);                
+        this.flashMessage.show('You are now registered and can log in', {cssClass: 'alert-success', timeout: 4000});
         this.router.navigate(['/login']);
       }else{
+        console.log('login failed' ,data);        
+        
         this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
-        this.router.navigate(['/register']);
+        this.router.navigate(['/']);
       }
-    });
-  }
-
+    })
+    
+  } 
 }

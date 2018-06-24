@@ -1,0 +1,33 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Add Book</span>
+    <span class="example-spacer"></span>
+    <button mat-mini-fab (click)="onNoClick()" color="primary" aria-label="Toggle menu">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-card-content>
+  <div class="container">
+    <form [formGroup]="_bookForm" (submit)="onSubmit()">
+      <mat-form-field class="example-form" appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput type="text" formControlName="Title" placeholder="Title">
+      </mat-form-field>
+      <mat-form-field class="example-form" appearance="outline">
+        <mat-label>Author</mat-label>
+        <input matInput type="text" formControlName="Author" placeholder="Author">
+      </mat-form-field>
+      <mat-form-field class="example-form" appearance="outline">
+        <mat-select placeholder="Availability" formControlName="Available">
+          <mat-option value="true">Yes</mat-option>
+          <mat-option value="false">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <button class="btn btn-success" type="submit">Save</button>
+
+    </form>
+  </div>
+</mat-card-content>

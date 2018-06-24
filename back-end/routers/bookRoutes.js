@@ -13,18 +13,6 @@ router.get('/books', (req, res, next) => {
     });
 })
 
-router.get('/books/:_id', (req, res, next) => {
-    Books.getBook(req.params._id,(error, books) => {
-        if (error) {
-            throw error;
-        }else {
-            res.json(books);
-        }
-    });
-})
-
-
-
 router.post('/books', (req, res) => {
     var newBook = {
         title: req.body.title,
@@ -34,9 +22,19 @@ router.post('/books', (req, res) => {
     console.log(newBook);    
     Books.addBook(newBook, (error, books) => {
         if (error) {
-            throw error;
+            res.json({success: false, msg:'Failed to register the user'});
         }else {
-            res.json(books);
+            res.json({success: true, msg:'book registered', book:books});
+        }
+    });
+})
+
+router.get('/books/:_id', (req, res, next) => {
+    Books.getBook(req.params._id,(error, books) => {
+        if (error) {
+            throw error;           
+        }else {
+            res.json({success: true, msg:'book found', book:books});
         }
     });
 })
@@ -51,17 +49,19 @@ router.put('/books/:_id',  (req, res) => {
         if (error) {
             throw error;
         }else {
-            res.json(books);
+            res.json({success: true, msg:'book edited', book:books});
         }
     })
 })
 
 router.delete('/books/:id', (req, res) => {
-    Books.deleteBook(req.params._id, (error, books) => {
+    Books.deleteBook(req.params.id, (error, books) => {
+        //req.params._id didnt worked for some dumb f**king reason
+        
         if (error) {
-            throw error;
+            res.json({success: false, msg:'book delete failed'});
         }else {
-            res.json(books);
+            res.json({success: true, msg:'book deleted', deletedbook:books});
         } 
     })
 })

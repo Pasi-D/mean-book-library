@@ -1,21 +1,48 @@
-<h1 class="h3 text-center">Welcome to the Virtual Book Library for UCSC Students</h1>
-<div class="container">
-  <form class="form-signin" (submit)="loginUser()">    
-    <label for="inputUsername" class="sr-only">Username</label>
-    <input type="text" id="inputUsername" class="form-control" placeholder="Username" 
-           [(ngModel)]="username" name="username"
-           required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" 
-           [(ngModel)]="password" name="password"
-           required>
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
-    </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
-  </form>
-</div>
+<!-- Main Toolbar of an App -->    
+<mat-toolbar color="primary">    
+  <span>UCSC E-Library System</span>    
+  <span class="demo-toolbar"></span>    
+  <button mat-button routerLink="/">Home</button>    
+  
+</mat-toolbar>    
+  
+<mat-card>    
+  <!-- Title of an Card -->    
+  <mat-card-title>    
+      Login as a user
+  </mat-card-title>    
+  
+  <mat-card-content>    
+      <form (submit)="loginUser()">    
+          <table>    
+              <tr>    
+                  <td colspan="2">    
+                      <mat-form-field class="demo-full-width">    
+                          <input matInput placeholder="Username" [(ngModel)]="username" name="username">    
+                      </mat-form-field>    
+                  </td>                      
+              </tr>    
+              <tr>    
+                <td colspan="2">    
+                  <mat-form-field class="demo-full-width">    
+                      <input matInput placeholder="Password" type="password" [(ngModel)]="password" name="password">    
+                  </mat-form-field>    
+              </td>        
+              </tr>    
+                
+              <tr>    
+                  <td colspan="2">    
+  
+                  </td>    
+              </tr>    
+              <tr>    
+                  <td colspan="2" class="content-center">    
+                      <button mat-raised-button color="primary" style="margin: 8%" type="submit">Submit</button>                          
+                  </td>    
+              </tr>    
+          </table>    
+      </form>    
 
+      <h6>Don't have an account ? <a routerLink="/register">Register</a></h6>
+  </mat-card-content>    
+</mat-card>

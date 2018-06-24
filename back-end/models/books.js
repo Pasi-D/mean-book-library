@@ -10,7 +10,7 @@ var bookSchema = Schema(
         author: {
             type: String,
             required: true
-        },
+        },                
         available: {
             type: Boolean
         }

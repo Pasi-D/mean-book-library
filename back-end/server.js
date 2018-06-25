@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var logger = require('morgan');
 
 var cors = require('cors');
 
@@ -18,14 +19,16 @@ mongoose.connect(config.database);
 // db connection status
 mongoose.connection
     .on('connected', () => {
-        console.log('connected to database : ' + config.database);        
+        console.log('connected to database : ' + config.database);
     })
     .on('error', (error) => {
-        console.log('error on connecting to database: ' + error);        
+        console.log('error on connecting to database: ' + error);
     });
 
-
 var app = express();
+
+// Morgan to log all requests 
+app.use(logger('dev'));
 
 // CORS Middleware
 app.use(cors());
@@ -53,6 +56,8 @@ app.use('/api', bookrouter);
 app.use('/user', userrouter);
 
 
-app.listen(port, function() {
-    console.log('server is running on port : ' + port);    
+app.listen(port, function () {
+    console.log('server is running on port : ' + port);
 });
+
+module.exports = app; // for testing

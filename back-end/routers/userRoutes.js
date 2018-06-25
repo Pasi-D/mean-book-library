@@ -5,17 +5,20 @@ var jwt = require('jsonwebtoken');
 
 var config = require('../config/database');
 
-var User = require('../schemas/userAPI');
+var User = require('../models/users');
 
-router.post('/register', function (req, res) {
+var userController = require('../controllers/userAPI');
+
+router.post('/register', (req, res) => {
     let newUser = new User({
         name: req.body.name,
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        role: req.body.role
     });
 
-    User.addUser(newUser, function (err, user) {
+    userController.addUser(newUser, (err, user) => {
         if (err) {
             res.json({success: fail, msg:'Failed to register the user'});
         } else {
@@ -24,20 +27,20 @@ router.post('/register', function (req, res) {
     });
 })
 
-router.get('/profile', passport.authenticate('jwt', {session:false}), function (req, res, next) {
+router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
     res.json({user: req.user});
 })
 
-router.post('/authenticate', function (req, res) {
+router.post('/authenticate', (req, res) => {
     var username = req.body.username;
     var password = req.body.password;
 
-    User.getUserByUsername(username, function (err, user) {                
+    userController.getUserByUsername(username, (err, user) => {                
         if(err) throw err;
         if(!user){
             return res.json({success: false, msg:'User not found'});
         }        
-        User.comparePassword(password, user.password, function (err, isMatch) {
+        userController.comparePassword(password, user.password, (err, isMatch) => {
             if(err) throw err;
             if (isMatch) {
                 const token = jwt.sign(user.toJSON(), config.secret, {
@@ -50,7 +53,8 @@ router.post('/authenticate', function (req, res) {
                     user: {
                         id: user._id,
                         username: user.username,
-                        email: user.email
+                        email: user.email,
+                        role: user.role
                     }
                 });
             }else {

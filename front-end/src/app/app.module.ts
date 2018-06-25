@@ -44,6 +44,9 @@ import { MatToolbarModule,
 
 import 'hammerjs';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+
 import { MyDashboardComponent } from './components/user_components/my-dashboard/my-dashboard.component';
 import { RegisterComponent } from './components/user_components/register/register.component';
 import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
@@ -60,6 +63,7 @@ import { BookTableComponent } from './components/admin_components/book-dash/book
 import { BookDialogComponent } from './components/admin_components/book-dash/book-dialog/book-dialog.component';
 import { BookDelWarnComponent } from './components/admin_components/book-dash/book-table/book-del-warn/book-del-warn.component';
 import { BookEditComponent } from './components/admin_components/book-dash/book-edit/book-edit.component';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -107,7 +111,11 @@ import { BookEditComponent } from './components/admin_components/book-dash/book-
     FlashMessagesModule,
 
     HttpClientModule,
-    
+
+    //Firebase stuff here
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
+
     HttpModule,  
     JwtModule.forRoot({
       config: {

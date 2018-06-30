@@ -17,6 +17,8 @@ router.post('/books', (req, res) => {
     var newBook = {
         title: req.body.title,
         author: req.body.author,
+        image: req.body.image,
+        category: req.body.category,
         available: req.body.available
     }
     console.log(newBook);    
@@ -43,6 +45,8 @@ router.put('/books/:_id',  (req, res) => {
     var update = {
         title: req.body.title,
         author: req.body.author,
+        image: req.body.image,
+        category: req.body.category,
         available: req.body.available
     }
     Books.updateBook(req.params._id, update, (error, books) => {
@@ -63,6 +67,17 @@ router.delete('/books/:id', (req, res) => {
         }else {
             res.json({success: true, msg:'book deleted', deletedbook:books});
         } 
+    })
+})
+
+router.patch('/books/:_id', (req, res) => {
+    var update = req.body;
+    Books.updateBook(req.params._id, update, (error, books) => {
+        if (error) {
+            throw error;
+        }else {
+            res.json({success: true, msg:'book updated with a patch', book:books});
+        }
     })
 })
 

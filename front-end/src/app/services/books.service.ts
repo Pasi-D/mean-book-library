@@ -44,11 +44,22 @@ export class BooksService {
     .pipe(map((res) => res.json()));
   }
 
+  borrowBook(bookId, update){
+    //patch to make availability false in conf-borrow
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.patch('http://localhost:3000/api/books/' + bookId, update, { headers: headers })
+      .pipe(map((res)=>res.json()));
+  }
+
+  makeAvailable(bookId, update){
+    //Make availability true and pop the borrower in books
+    console.log('bookid is :', bookId);
+    
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.patch('http://localhost:3000/api/book/' + bookId, update, { headers: headers })
+      .pipe(map((res)=>res.json()));
+  }
 }
-export interface Book{
-  _id: string;
-  title: string;
-  author: string;
-  available: boolean;
-  _v: number
-}
+

@@ -19,3 +19,21 @@
   .green-btn{
     background-color: #4CAF50
   }
+
+  .example-button-row {
+     display: flex; 
+     align-items: center; 
+     justify-content: space-around; 
+  }
+
+  .save-btn{
+    padding-top: 10%;
+  }
+
+  .progress-spin-vals{
+    margin: 0 130px;
+  }
+
+  .warn-text{
+    margin-left: 12.5%
+  }

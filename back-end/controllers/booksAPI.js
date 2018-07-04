@@ -1,12 +1,17 @@
 const Book = require('../models/books');
 
+const User = require('../models/users');
+
 module.exports = {
     getBooks: (callback) => {
         Book.find(callback);
     },
 
     getBook: (id, callback) => {
-        Book.findById(id, callback);
+        Book.findById(id, callback).populate({
+            path: 'borrower._id',
+            model: 'User'
+        });
     },
 
     addBook: (newBook, callback) => {

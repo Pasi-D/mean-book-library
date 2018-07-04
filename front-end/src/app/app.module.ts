@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { FlashMessagesModule } from 'angular2-flash-messages/module';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
+import { NgFlashMessagesModule } from 'ng-flash-messages';
+
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -30,6 +32,8 @@ import { MatToolbarModule,
          MatInputModule, 
          MatSelectModule,
 
+         MatProgressSpinnerModule,
+
          MatOptionModule,
          MatDatepickerModule,      
          MatNativeDateModule,
@@ -42,7 +46,12 @@ import { MatToolbarModule,
          ShowOnDirtyErrorStateMatcher, MatTableModule, MatPaginatorModule, MatSortModule
         } from '@angular/material';
 
+import {NgxPaginationModule} from 'ngx-pagination';
+
 import 'hammerjs';
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 import { MyDashboardComponent } from './components/user_components/my-dashboard/my-dashboard.component';
 import { RegisterComponent } from './components/user_components/register/register.component';
@@ -60,6 +69,15 @@ import { BookTableComponent } from './components/admin_components/book-dash/book
 import { BookDialogComponent } from './components/admin_components/book-dash/book-dialog/book-dialog.component';
 import { BookDelWarnComponent } from './components/admin_components/book-dash/book-table/book-del-warn/book-del-warn.component';
 import { BookEditComponent } from './components/admin_components/book-dash/book-edit/book-edit.component';
+import { environment } from '../environments/environment';
+import { ConfBorrComponent } from './components/user_components/my-dashboard/conf-borr/conf-borr.component';
+import { CollectionDashComponent } from './components/user_components/collection-dash/collection-dash.component';
+import { BookmarksDashComponent } from './components/user_components/bookmarks-dash/bookmarks-dash.component';
+import { DueDashComponent } from './components/user_components/due-dash/due-dash.component';
+import { SuggestBookComponent } from './components/user_components/suggest-book/suggest-book.component';
+import { UnBorrowComponent } from './components/user_components/collection-dash/un-borrow/un-borrow.component';
+import { NotificationsComponent } from './components/admin_components/notifications/notifications.component';
+import { UserTableComponent } from './components/admin_components/user-dash/user-table/user-table.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +93,15 @@ import { BookEditComponent } from './components/admin_components/book-dash/book-
     UserDashComponent,
     BookDialogComponent,
     BookDelWarnComponent,
-    BookEditComponent, 
+    BookEditComponent,
+    ConfBorrComponent,
+    CollectionDashComponent,
+    BookmarksDashComponent,
+    DueDashComponent,
+    SuggestBookComponent,
+    UnBorrowComponent,
+    NotificationsComponent,
+    UserTableComponent, 
   ],
   imports: [
     BrowserModule,
@@ -86,6 +112,7 @@ import { BookEditComponent } from './components/admin_components/book-dash/book-
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
     MatSidenavModule,
     MatIconModule,
     MatInputModule,
@@ -106,8 +133,16 @@ import { BookEditComponent } from './components/admin_components/book-dash/book-
     
     FlashMessagesModule,
 
+    NgFlashMessagesModule,
+
     HttpClientModule,
-    
+
+    NgxPaginationModule,
+
+    //Firebase stuff here
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
+
     HttpModule,  
     JwtModule.forRoot({
       config: {
@@ -120,7 +155,9 @@ import { BookEditComponent } from './components/admin_components/book-dash/book-
   entryComponents: [
     BookDialogComponent,
     BookDelWarnComponent,
-    BookEditComponent
+    BookEditComponent,
+    ConfBorrComponent,
+    UnBorrowComponent
   ],
   exports: [      
     MatButtonModule,      

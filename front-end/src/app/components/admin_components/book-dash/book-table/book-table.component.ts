@@ -6,6 +6,9 @@ import { BookDelWarnComponent } from './book-del-warn/book-del-warn.component';
 import { BookDashComponent } from '../book-dash.component';
 import { BookEditComponent } from '../book-edit/book-edit.component';
 
+import { Book } from '../../../../models/Book';
+import { UserService } from '../../../../services/user.service';
+
 @Component({
   selector: 'app-book-table',
   templateUrl: './book-table.component.html',
@@ -14,7 +17,7 @@ import { BookEditComponent } from '../book-edit/book-edit.component';
 export class BookTableComponent implements OnInit {
   bookdata: any
 
-  displayedColumns = ['_id', 'title', 'author', 'available', 'action'];
+  displayedColumns = ['title', 'author', 'category', 'image', 'available', 'action'];
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -22,15 +25,13 @@ export class BookTableComponent implements OnInit {
   
 
   constructor(private bookService: BooksService,
-              private dialog?: MatDialog) {
-              console.log('Inside constructor table');
+              private userService: UserService,
+              private dialog?: MatDialog) {              
               
   }
 
   ngOnInit() {
-    return this.bookService.getBooks().subscribe((dataBooks: Book[]) => {
-      this.dataSource.data = dataBooks;
-    });
+    this.refreshAPIData();
   }
 
   ngAfterViewInit() {    
@@ -47,18 +48,19 @@ export class BookTableComponent implements OnInit {
     }
   }
 
-  editBook(bookID, titleVal, authorVal, availVal){
+  editBook(bookID, titleVal, authorVal, availVal, catVal){
     
     console.log('Editing Book: ',bookID);  
 
     // code here to edit book
     const dialogRef = this.dialog.open(BookEditComponent,{
-      height: '400px',
+      height: '560px',
       width: '600px',
       data: {editId:bookID, 
              bookTitle:titleVal , 
              bookAuthor:authorVal , 
-             bookAvailability:availVal 
+             bookAvailability:availVal,
+             bookCategory:catVal
             }
     });
 
@@ -92,14 +94,34 @@ export class BookTableComponent implements OnInit {
     });
     
   }
+
+  makeBookAvailable(bookID){
+    console.log('trying to make', bookID, 'available');
+
+    //For patching the book with available true
+    var update = {
+      available: true
+    }
+    var borrowBook = {
+      bookId: bookID
+    }
+
+    this.bookService.makeAvailable(bookID, update).subscribe(data=>{
+      console.log('book datas id: ', data.borrowedUser._id);    
+      //Remove the BookObject from the user.borrows
+      if (data.success) {
+        this.userService.removeBorrows(borrowBook, data.borrowedUser._id).subscribe(subData=>{
+          console.log('Book made available and removed from user.borrows');                    
+        })
+      }      
+      this.refreshAPIData();      
+    })
+
+
+    
+  }
 }
 
-export interface Book {
-  _id: string;
-  title: string;
-  author: string;
-  available: boolean;
-  _v: number
-}
+
 
 

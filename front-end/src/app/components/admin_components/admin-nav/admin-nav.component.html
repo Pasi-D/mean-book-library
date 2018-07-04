@@ -17,6 +17,10 @@
          [ngClass]="{'side-nav-active-item': (apptitle === 'Manage Users'),
                      'side-nav-items': !(apptitle === 'Manage Users')}">
       <mat-icon aria-hidden="true">person</mat-icon> Manage Users</a>
+      <a mat-list-item (click)="swithToNotifications()"
+         [ngClass]="{'side-nav-active-item': (apptitle === 'Notifications'),
+                     'side-nav-items': !(apptitle === 'Notifications')}">
+      <mat-icon aria-hidden="true">notification_important</mat-icon>Notifications</a>
       <a mat-list-item (click)="switchToManageFines()"
          [ngClass]="{'side-nav-active-item': (apptitle === 'Manage Fines'),
                      'side-nav-items': !(apptitle === 'Manage Fines')}">

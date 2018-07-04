@@ -20,7 +20,7 @@ export class BookDashComponent {
               ){}
 
   cards = [
-    { title: 'Card 1', cols: 2, rows: 2 }
+    { title: '', cols: 2, rows: 2 }
   ];
 
   isMobileDashboard() {
@@ -36,8 +36,8 @@ export class BookDashComponent {
     console.log('Adding a book');
     // code here
     const dialogRef = this.dialog.open(BookDialogComponent, {
-      height: '400px',
-      width: '600px',
+      height: '575px',
+      width: '400px',
       data: {}
     });
 

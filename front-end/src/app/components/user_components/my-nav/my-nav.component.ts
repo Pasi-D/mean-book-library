@@ -26,7 +26,17 @@ export class MyNavComponent {
               private router: Router) {
 
                 console.log('isLoggedIn: ', this.authService.isLoggedIn());
-                
+                if (this.router.url === '/') {
+                  this.apptitle = 'Browse Books';
+                }else if(this.router.url === '/collection'){
+                  this.apptitle = 'My Collections';
+                }else if(this.router.url === '/bookmarks'){
+                  this.apptitle = 'Flagged Books';
+                }else if(this.router.url === '/dues'){
+                  this.apptitle = 'My Dues';
+                }else if(this.router.url === '/suggest-book'){
+                  this.apptitle = 'Suggest A Book';
+                }
               }
   
 
@@ -40,27 +50,27 @@ export class MyNavComponent {
 
   switchToBrowseBooks(){
     this.apptitle = 'Browse Books';
-    console.log('You are in', this.apptitle);    
+    this.router.navigate(['/']);
   }
 
   switchToMyCollections(){
     this.apptitle = 'My Collections';
-    console.log('You are in', this.apptitle);    
+    this.router.navigate(['/collection']);    
   }
 
   switchToBookMarks(){
     this.apptitle = 'Flagged Books';
-    console.log('You are in', this.apptitle);
+    this.router.navigate(['/bookmarks']);
   }
   
   switchToMyDues(){
     this.apptitle = 'My Dues';
-    console.log('You are in', this.apptitle);
+    this.router.navigate(['/dues']);
   }
   
   switchToSuggestBook(){
     this.apptitle = 'Suggest A Book';
-    console.log('You are in', this.apptitle);
+    this.router.navigate(['/suggest-book']);
   }
   
   switchToNewReleases(){

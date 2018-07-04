@@ -19,6 +19,22 @@
                 <mat-header-cell *matHeaderCellDef mat-sort-header>author</mat-header-cell>
                 <mat-cell *matCellDef="let row" class="mycolor2"> {{row.author }} </mat-cell>
             </ng-container>
+
+            <!--category-->
+            <ng-container matColumnDef="category">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>category</mat-header-cell>
+                <mat-cell *matCellDef="let row" class="mycolor2"> {{row.category}} </mat-cell>
+            </ng-container>
+
+            <!--image-->
+            <ng-container matColumnDef="image">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>image</mat-header-cell>
+                <mat-cell *matCellDef="let row" class="mycolor2">
+                    <a href="{{row.image}}" target="_blank">
+                        <mat-icon>image</mat-icon>
+                    </a>  
+                </mat-cell>
+            </ng-container>
             
             <!--available-->
             <ng-container matColumnDef="available">
@@ -29,11 +45,14 @@
             <ng-container matColumnDef="action">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>action</mat-header-cell>
                 <mat-cell *matCellDef="let row">
-                    <button mat-icon-button (click)="editBook(row._id, row.title, row.author, row.available)" aria-label="Toggle menu">
+                    <button mat-icon-button (click)="editBook(row._id, row.title, row.author, row.available, row.category)" aria-label="Toggle menu">
                         <mat-icon>edit</mat-icon>
                     </button>
                     <button mat-icon-button (click)="deleteBook(row._id)" aria-label="Toggle menu">
                         <mat-icon>delete</mat-icon>
+                    </button>
+                    <button mat-icon-button *ngIf="!row.available" (click)="makeBookAvailable(row._id)" aria-label="Toggle menu">
+                        <mat-icon>compare_arrows</mat-icon>
                     </button>
                 </mat-cell>
             </ng-container>

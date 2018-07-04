@@ -28,5 +28,17 @@
 ## Install 
 
   - Download/clone the repo
-  - Run npm install
-  - Run gulp and navigate to http://localhost:3000 to view the app
+  - Change the mongodb ports or database in back-end/config/database.js
+  - go to back-end folder
+      ````
+      cd back-end
+      npm install
+      npm start
+      ````
+  - go to front-end folder
+      ````
+      cd front-end
+      npm install
+      ng serve
+      ````
+  - go to http://localhost:4200 to access the digital library

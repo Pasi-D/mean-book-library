@@ -12,6 +12,9 @@ var bookrouter = require('./routers/bookRoutes');
 // Routes for Users
 var userrouter = require('./routers/userRoutes');
 
+//Routes for Notifications
+var notifirouter = require('./routers/notificationRoutes');
+
 const config = require('./config/database');
 
 mongoose.connect(config.database);
@@ -54,6 +57,7 @@ require('./config/passport')(passport);
 // Routes
 app.use('/api', bookrouter);
 app.use('/user', userrouter);
+app.use('/notification', notifirouter);
 
 
 app.listen(port, function () {

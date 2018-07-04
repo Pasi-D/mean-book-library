@@ -1,10 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormGroup } from '@angular/forms/src/model';
-import { FormBuilder } from '@angular/forms';
+import { NgFlashMessageService } from 'ng-flash-messages';
 import { BooksService } from '../../../../../services/books.service';
 
-import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-book-del-warn',
@@ -14,8 +12,8 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 export class BookDelWarnComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<any>,              
-              private _bookService: BooksService,
-              private flashMessage: FlashMessagesService,
+              private _bookService: BooksService,              
+              private ngFlashMessageService: NgFlashMessageService,
               @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   onNoClick(): void{
@@ -35,10 +33,20 @@ export class BookDelWarnComponent implements OnInit {
       console.log('delete status ', Rdata);
       if (Rdata.success) {
         this.dialogRef.close();
-        this.flashMessage.show('Book Deleted Successfully', {cssClass: 'alert-success', timeout: 3000});
+        this.ngFlashMessageService.showFlashMessage({          
+          messages: ["Deleted Successfully"],         
+          dismissible: true,           
+          timeout: 8000,          
+          type: 'info'
+        });        
       } else {
         this.dialogRef.close();
-        this.flashMessage.show('Book failed to register', {cssClass: 'alert-danger', timeout: 3000});     
+        this.ngFlashMessageService.showFlashMessage({          
+          messages: ["Failed to delete"],           
+          dismissible: true,           
+          timeout: 8000,          
+          type: 'danger'
+        });
       }
     })
     

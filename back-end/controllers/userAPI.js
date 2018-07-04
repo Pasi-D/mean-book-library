@@ -5,6 +5,7 @@ const User = require('../models/users');
 
 module.exports = {
 
+    
     getUserById: (id, callback) => {
         User.findById(id, callback);
     },

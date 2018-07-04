@@ -16,10 +16,20 @@ var bookSchema = Schema(
         },
         category: {
             type: String
-        },                
+        },
         available: {
             type: Boolean
-        }
+        },
+        borrower: [{
+            _id: {
+                type: Schema.Types.ObjectId,
+                ref: 'users'            
+            },
+            borrowdate: {
+                type: Date,
+                default: Date.now
+            }
+        }]
     }
 );
 

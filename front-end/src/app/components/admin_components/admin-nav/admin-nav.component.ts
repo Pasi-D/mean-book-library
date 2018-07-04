@@ -32,6 +32,8 @@ export class AdminNavComponent {
                   this.apptitle = 'Manage Users';
                 } else if(this.router.url === '/admin-fines') {
                   this.apptitle = 'Manage Fines';   
+                } else if(this.router.url === '/admin-notices'){
+                  this.apptitle = 'Notifications';
                 }
                }
 
@@ -55,6 +57,11 @@ export class AdminNavComponent {
 
   switchToManageFines(){
     this.apptitle = 'Manage Fines';      
+  }
+
+  swithToNotifications(){
+    this.apptitle = 'Notifications';
+    this.router.navigate(['/admin-notices']);
   }
 
 }

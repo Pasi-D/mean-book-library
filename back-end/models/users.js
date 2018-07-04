@@ -14,6 +14,20 @@ var UserSchema = Schema({
         type: String,
         required: true
     },
+    bookmarks:[{
+        type: Schema.Types.ObjectId,        
+        ref: 'books'               
+    }],
+    borrows:[{
+        _id: {
+            type: Schema.Types.ObjectId,
+            ref: 'books'
+        },
+        borrowdate: {
+            type: Date,
+            default: Date.now
+        }
+    }],
     role: {
         type: String,
         enum: ['User', 'Admin'],
